@@ -1,4 +1,62 @@
 html, body {
+    font-family: 'Source Sans Pro', ;
     margin: 0;
     padding: 0;
+    background-color: wheat;
+}
+.header {
+    display: flex;
+    background-color: maroon;
+    color:wheat;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-bottom: 15px;
+}
+.wrapper {
+    display: flex;
+    background-color: wheat;
+    color: maroon;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.content-body{
+    padding-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 960px;
+}
+
+.pic-and-caption{
+    display: flex;
+    width: 33%;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.picture{
+    object-fit: fill;
+    border-radius: 4px;
+    border-color: black;
+    border-style: solid;
+}
+
+.info-box{
+    display: flex;
+    width: 66%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+dt{
+    font-family: 'Spartan', ;
+    font-weight: bold;
 }
