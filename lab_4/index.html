@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Prof A's Demo Page</title>
+    <title>Adam Fiergang's Lab 4</title>
     <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
 
   <body>
     <div class="container">
       <div class="wrapper">
-        <div class="header">Prof A's Demo Page</div>
+        <div class="header">Adam Fiergang's Lab 4</div>
         <button class="button" onclick="clickMe()">
           Click me to make a change
         </button>
@@ -26,8 +26,21 @@
     </div>
     <script>
       function clickMe() {
+        const myName = "Adam Fiergang";
+        const nameLength = myName.length;
+        const thirdUpper = myName.charAt(3).toUpperCase();
+        const lastThree = myName.slice(3);
+
         const content = document.querySelector(".content");
         content.innerHTML = "Hello world";
+
+        const par = document.createElement("p");
+        par.className = "firstParagraph";
+        par.innerText = `My name has ${nameLength} characters, but I don't think that makes me unlucky.`;
+        content.appendChild(par);
+
+        const par2 = document.createElement("p"); 
+        par.className = "secondParagraph";
       }
     </script>
   </body>
