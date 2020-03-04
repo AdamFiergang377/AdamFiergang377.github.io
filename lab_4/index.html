@@ -29,7 +29,10 @@
         const myName = "Adam Fiergang";
         const nameLength = myName.length;
         const thirdUpper = myName.charAt(3).toUpperCase();
-        const lastThree = myName.slice(3);
+        const lastThree = myName.slice(-3);
+        const firstName = myName.substring(0, 4);
+        const lastName = myName.slice(-8);
+        const totalChars = firstName.length + lastName.length;
 
         const content = document.querySelector(".content");
         content.innerHTML = "Hello world";
@@ -40,7 +43,13 @@
         content.appendChild(par);
 
         const par2 = document.createElement("p"); 
-        par.className = "secondParagraph";
+        par2.className = "secondParagraph";
+        par2.innerText = `${thirdUpper} is the third letter of my name.\n` + 
+          `And ${lastThree} are the final three characters of my name.`;
+        content.appendChild(par2);
+
+        const content2 = document.querySelector(".header");
+        content2.innerHTML = "Adam Fiergang's Lab 4 - 12";
       }
     </script>
   </body>
