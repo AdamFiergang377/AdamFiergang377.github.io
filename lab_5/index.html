@@ -322,7 +322,7 @@
       /*logging unselected countries*/
       countries.forEach(element => {
         if (!countryList.includes(countries.indexOf(element))){
-          console.log(element);
+          console.log(`Country: ${element.name}, Code: ${element.code}`);
         }
       });
     }
