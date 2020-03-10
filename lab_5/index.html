@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Test JSON page</title>
+  <title>Adam Fiergang Lab 5</title>
   <link rel="stylesheet" type="text/css" href="./styles.css">
 </head>
 
@@ -11,7 +11,7 @@
     <div class="wrapper">
       <div class="header">Adam Fiergang's List Of Countries</div>
       <!-- <button class="button" onclick="loadData()">Load Some JSON</button> -->
-      <button class="activate">Click me to replace list
+      <button class="activate" onclick="loadData()">Click me to replace list
         entries</button>
       <div class="content">
       </div>
@@ -266,6 +266,65 @@
       { "name": "Zimbabwe", "code": "ZW" }
     ]
     console.log("List of countries in the world", countries);
+
+    function loadData() {
+      /* 243 countries in list */
+      const content = document.querySelector(".content");
+      /*Creating/appending ordered list with class name*/
+      const ordlist = document.createElement("ol");
+      ordlist.className = "countries";
+      content.appendChild(ordlist)
+    
+      /*Create List*/
+      let countryList = [];
+
+      /*Getting List of ints*/
+      /*public static void main*/
+      /*Ok so here's my reasonig for this. Its a pretty Java way of solving it.
+      But essentiall I need 25 random ints to later use in getting the 
+      corresponding indeces from the countries list. So initialyl I was like ok 
+      I'll do the random functino 25 times. But to get them unique I need to take
+      more steps. So each time I do random, it gets put into a temp variable 
+      while I check if its unique. If its not, then I'm not going to use that int,
+      otherwise I'll push it to the array. However, this will mean that there will
+      be less thatn 25 elements if any duplicates are tried, so in that case I push 
+      the loop back one so that is goes untill its ran the else 25 times. I'm sure 
+      theres a better way of doing that but I'm brainwashed by Java.*/
+      let i = 0;
+      for(i; i < 25; i++){
+        let temp = getRandomIntInclusive(0, 242);
+        if(countryList.includes(temp)){
+          i--;
+        } else {
+          countryList.push(temp);
+        }
+      }
+      
+      /*Extra credit: guaranteeing that they countries are in alphabetical order*/
+      countryList.sort(function(a, b){return a-b});
+
+      
+      /*inner elements*/
+      countryList.forEach(element => {
+        const lElement = document.createElement("li");
+        lElement.innerHTML = `<strong>${countries[element].code}</strong> ${countries[element].name}`;
+        ordlist.appendChild(lElement);
+      });
+
+      /*logging unselected countries*/
+      countries.forEach(element => {
+        if (!countryList.includes(countries.indexOf(element))){
+          console.log(element);
+        }
+      });
+    }
+
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+    }
+    /*The above function (getRandomIntInclusive) is credited to MDN, and is not original work.*/
   </script>
 </body>
 
