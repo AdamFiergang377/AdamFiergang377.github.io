@@ -270,6 +270,10 @@
     function loadData() {
       /* 243 countries in list */
       const content = document.querySelector(".content");
+      /*I just wanted to add this in to clear the content at the beginning, 
+      so that if someone spam clicked the button it wouldn't just keep appending
+      lists and making the page really long*/
+      content.innerHTML = "";
       /*Creating/appending ordered list with class name*/
       const ordlist = document.createElement("ol");
       ordlist.className = "countries";
@@ -279,29 +283,33 @@
       let countryList = [];
 
       /*Getting List of ints*/
-      /*public static void main*/
-      /*Ok so here's my reasonig for this. Its a pretty Java way of solving it.
-      But essentiall I need 25 random ints to later use in getting the 
-      corresponding indeces from the countries list. So initialyl I was like ok 
-      I'll do the random functino 25 times. But to get them unique I need to take
+
+      /*Ok so here's my reasoning for this. Its a pretty Java way of solving it.
+      But essentially I need 25 random ints to later use in getting the 
+      corresponding indices from the countries list. So initialyl I was like ok 
+      I'll do the random function 25 times. But to get them unique I need to take
       more steps. So each time I do random, it gets put into a temp variable 
-      while I check if its unique. If its not, then I'm not going to use that int,
-      otherwise I'll push it to the array. However, this will mean that there will
-      be less thatn 25 elements if any duplicates are tried, so in that case I push 
-      the loop back one so that is goes untill its ran the else 25 times. I'm sure 
-      theres a better way of doing that but I'm brainwashed by Java.*/
+      while I check if its unique(already in the array). If its not, then I'm not 
+      going to use that int, otherwise I'll push it to the array. However, this 
+      will mean that there will be less than 25 elements if any duplicates are 
+      tried, so in that case I push the loop back one so that it essentially goes 
+      until its ran the else 25 times. I'm sure theres a better way of doing that 
+      but I'm brainwashed by Java.*/
+
+      /*public static void main*/
       let i = 0;
       for(i; i < 25; i++){
         let temp = getRandomIntInclusive(0, 242);
-        if(countryList.includes(temp)){
+        if(countryList.includes(temp)) {
           i--;
-        } else {
+        } 
+        else {
           countryList.push(temp);
         }
       }
       
-      /*Extra credit: guaranteeing that they countries are in alphabetical order*/
-      countryList.sort(function(a, b){return a-b});
+      /*Extra credit: guaranteeing that the countries are in alphabetical order*/
+      countryList.sort(function(first, second){return first-second});
 
       
       /*inner elements*/
