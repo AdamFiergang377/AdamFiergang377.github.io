@@ -114,3 +114,11 @@ h3 {
   width: 640px;
     }
 }
+
+.marks .leaflet-popup-content-wrapper, 
+.marks .leaflet-popup-tip {
+  background-color: blue;
+  color: chartreuse;
+  font-weight: bold;
+  width: 150px;
+}
