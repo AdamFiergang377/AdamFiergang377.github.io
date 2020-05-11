@@ -38,8 +38,11 @@
       accessToken: 'pk.eyJ1IjoiYWZpZXJnYW5nIiwiYSI6ImNrYTJodHowajA2NmUzbG5kaTVvYWJnbnUifQ.pXN0db872HUqJve1FktrBg'
       }).addTo(mymap);
 
-      const mckeldin = L.marker([38.985931, -76.945066]).addTo(mymap);
+      const mckeldin = L.marker([38.985931, -76.945066], {title: "McKeldin"}).addTo(mymap);
       mckeldin.bindPopup("McKeldin Library", {'className': 'marks'}).openPopup();
+      
+      const chipotle = L.marker([38.980099, -76.937981], {title: "Chipotle"}).addTo(mymap);
+      chipotle.bindPopup("Chipotle Mexican Grill", {'className': 'marks'});
     </script>
   </body>
 </html>
