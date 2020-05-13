@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Charts Lab</title>
+    <title>Charts Lab - Fiergang</title>
     <link rel="stylesheet" type="text/css" href="./styles.css" />
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   </head>
@@ -10,13 +10,14 @@
       <div class="wrapper">
         <div class="header">Frontend Libraries: Charts Lab</div>
         <div class="content">
-          When your lab is done, this should be replaced with a useful chart full of food data.
+          <div class="chart" id="chartContainer" style="height:600px">
+          </div>
         </div>
         <div class="footer">Let's eat out in the future!</div>
       </div>
     </div>
     <script>
-      fetch(' https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json') // replace this with the food safety data set
+      /*fetch(' https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json') // replace this with the food safety data set
       .then((response) => {
         console.log("response information", response);
         return response;
@@ -25,7 +26,59 @@
         .then((data) => { // this is an explicit return. If I want my information to go further, I'll need to use the "return" keyword before the brackets close
           console.log(data);
           // return data; // <- this will pass the data to the next "then" statement when I'm ready.
+        })*/
+
+      function dataFetcher() {
+	      fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json')
+		    .then((data) => data.json())
+		    .then((data) => {
+			    const roladex = {};
+			    for (let i=0; i<data.length; i++) {
+				    let categoryHolder = data[i].category;
+				    if (categoryHolder in roladex) {
+					     roladex[categoryHolder] += 1;
+				    }
+				    else {
+					    roladex[categoryHolder] = 1;
+				    }
+			    };
+			    console.log(roladex);
+          return roladex;
         })
+	      .then((roladex) => {
+			  const dataPoints = [];
+
+			  // credit stack overflow:https://stackoverflow.com/questions/684672/how-do-i-loop-through-or-enumerate-a-javascript-object
+			  let i=0;
+			  for (var property in roladex) {
+				  if(!roladex.hasOwnProperty(property)) {
+				  	continue;
+				  }
+				  let datapoint = {};
+				  let key = Object.keys(roladex)[i];
+				  datapoint["label"] = key;
+				  datapoint["y"] = roladex[key];
+				  dataPoints.push(datapoint);
+				  i++;
+			  }
+			  console.log(dataPoints);
+			  makeChart(dataPoints);
+		    });
+      }
+
+      function makeChart(fooddata) {
+        const chart = new CanvasJS.Chart("chartContainer", 
+                                        {animationEnabled: true, 
+                                          title:{text: "Where can I eat?"}, 
+                                          axisX:{labelFontSize: 11, interval: 1},
+                                          axisY: {title: "Number of Places I can Eat per Category",
+			                                      scaleBreaks: {type: "wavy",
+				                                      customBreaks: [{startValue: 70, endValue: 130,},
+                                                            {startValue: 170, endValue: 200}]}},
+	                                        data: [{type: "bar", dataPoints:fooddata}]});
+        chart.render();
+      };
+      dataFetcher()
     </script>
   </body>
 </html>
