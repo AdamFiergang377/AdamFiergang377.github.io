@@ -4,6 +4,7 @@
 <head>
   <title>Simple Servers Lab - Fiergang</title>
   <link rel="stylesheet" type="text/css" href="./styles.css">
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 
 <body>
@@ -14,15 +15,32 @@
         <div class="chart" id="chartContainer" style="height:600px">
         </div>
       </div>
+      <div class="footer">Let's eat out in the future!</div>
       <div class="footer"></div>
     </div>
   </div>
   <script>
-    fetch('/api') // Rather than fetching from PG County, we're going to fetch from our own server.
-      .then(res => res.json())
-      .then(res => {
+    function dataFetcher(){
+      fetch('/api') // Rather than fetching from PG County, we're going to fetch from our own server.
+        .then(res => res.json())
+        .then(res => {
         // Here's where your chart code should go.
-      })
+        makeChart(res.dataPoints);
+      });
+    };
+      function makeChart(fooddata) {
+        const chart = new CanvasJS.Chart("chartContainer", 
+                                        {animationEnabled: true, 
+                                          title:{text: "Where can I eat?"}, 
+                                          axisX:{labelFontSize: 11, interval: 1},
+                                          axisY: {title: "Number of Places I can Eat per Category",
+			                                      scaleBreaks: {type: "wavy",
+				                                      customBreaks: [{startValue: 70, endValue: 130,},
+                                                            {startValue: 170, endValue: 200}]}},
+	                                        data: [{type: "bar", dataPoints:fooddata}]});
+        chart.render();
+      };
+      dataFetcher();
   </script>
 </body>
 
