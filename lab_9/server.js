@@ -30,9 +30,39 @@ function processDataForFrontEnd(req, res) {
     fetch(baseURL)
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
-        res.send({ data: data }); // here's where we return data to the front end
+        const roladex = {};
+        for (let i=0; i<data.length; i++) {
+          let categoryHolder = data[i].category;
+          if (categoryHolder in roladex) {
+             roladex[categoryHolder] += 1;
+          }
+          else {
+            roladex[categoryHolder] = 1;
+          }
+        };
+        console.log(roladex);
+        return roladex;
       })
+      .then((roladex) => {
+      const dataPoints = [];
+
+      // credit stack overflow:https://stackoverflow.com/questions/684672/how-do-i-loop-through-or-enumerate-a-javascript-object
+      let i=0;
+      for (var property in roladex) {
+        if(!roladex.hasOwnProperty(property)) {
+          continue;
+        }
+        let datapoint = {};
+        let key = Object.keys(roladex)[i];
+        datapoint["label"] = key;
+        datapoint["y"] = roladex[key];
+        dataPoints.push(datapoint);
+        i++;
+      }
+      console.log(dataPoints);
+      res.send({dataPoints}); // here's where we return data to the front end
+      })
+
       .catch((err) => {
         console.log(err);
         res.redirect('/error');
